@@ -18,12 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function createBookItem(title, author, year, isCompleted) {
         const bookItem = document.createElement('div');
         bookItem.classList.add('book-item');
-        bookItem.style.backgroundColor = '#f42f2c'; // Set background color for new item
-        bookItem.style.color = 'white'; // Set text color
-        bookItem.style.borderRadius = '5px'; // Set border radius
-        bookItem.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; // Set box shadow
-        bookItem.style.padding = '10px'; // Add padding
-        bookItem.style.marginBottom = '10px'; // Add margin bottom
+        bookItem.style.backgroundColor = '#f42f2c'; 
+        bookItem.style.color = 'white'; 
+        bookItem.style.borderRadius = '5px';
+        bookItem.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; 
+        bookItem.style.padding = '10px'; 
+        bookItem.style.marginBottom = '10px'; 
 
         bookItem.innerHTML = `
             <h3>${title}</h3>
@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Style buttons
         const editButton = bookItem.querySelector('.edit');
         const deleteButton = bookItem.querySelector('.delete');
-        editButton.style.backgroundColor = '#4CAF50'; // Green
-        deleteButton.style.backgroundColor = '#f44336'; // Red
+        editButton.style.backgroundColor = '#4CAF50'; 
+        deleteButton.style.backgroundColor = '#f44336'; 
 
         editButton.style.color = 'white';
         deleteButton.style.color = 'white';
@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const markCompletedButton = document.createElement('button');
             markCompletedButton.textContent = 'Selesai dibaca';
             markCompletedButton.classList.add('complete');
-            markCompletedButton.style.backgroundColor = '#FFEB3B'; // Yellow
-            markCompletedButton.style.color = 'black'; // Text color for better readability
+            markCompletedButton.style.backgroundColor = '#FFEB3B'; 
+            markCompletedButton.style.color = 'black'; 
             markCompletedButton.style.borderRadius = '5px';
             addHoverEffect(markCompletedButton);
             markCompletedButton.addEventListener('click', function() {
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const markIncompleteButton = document.createElement('button');
             markIncompleteButton.textContent = 'Belum Selesai Dibaca';
             markIncompleteButton.classList.add('incomplete');
-            markIncompleteButton.style.backgroundColor = '#FFEB3B'; // Yellow
+            markIncompleteButton.style.backgroundColor = '#FFEB3B';
             markIncompleteButton.style.color = 'black';
             markIncompleteButton.style.borderRadius = '5px';
             addHoverEffect(markIncompleteButton);
@@ -78,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
             bookItem.remove();
         });
 
-        // Implement the edit functionality based on your requirements
         editButton.addEventListener('click', function() {
             console.log('Edit feature to be implemented');
         });
@@ -113,8 +112,28 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             inProgressBooksList.appendChild(bookItem);
         }
+  function getBooksFromLocalStorage() {
+    const storedBooks = localStorage.getItem('books');
+    return storedBooks ? JSON.parse(storedBooks) : [];
+  }
+
+  function saveBooksToLocalStorage(books) {
+    localStorage.setItem('books', JSON.stringify(books));
+  }
+
+  
+  const books = getBooksFromLocalStorage();
+  books.forEach(book => {
+    const bookItem = createBookItem(book.title, book.author, book.year, book.isCompleted);
+    if (book.isCompleted) {
+      completedBooksList.appendChild(bookItem);
+    } else {
+      inProgressBooksList.appendChild(bookItem);
+    }
+  });
 
         form.reset();
+
 
 
     });
